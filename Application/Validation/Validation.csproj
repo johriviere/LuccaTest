@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Application.Validation</AssemblyName>
+    <RootNamespace>Application.Validation</RootNamespace>
+  </PropertyGroup>
+
+</Project>
