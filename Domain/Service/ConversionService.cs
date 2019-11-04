@@ -6,13 +6,11 @@ using Domain.Service.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity;
 
 namespace Domain.Service
 {
     public class ConversionService : IConversionService
     {
-        [Dependency]
         private IDijkstraService _dijkstraService;
 
         public ConversionService(IDijkstraService dijkstraService)
