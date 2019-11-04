@@ -1,15 +1,18 @@
 ﻿using Domain.Model;
 using Domain.Service;
+using Domain.Service.Dijkstra;
+using Domain.Service.Dijkstra.Model;
+using Domain.Service.Dijkstra.Result;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Collections.Generic;
-using Unity;
+using System.Linq;
 
 namespace Test.Domain.Test
 {
     [TestClass]
     public class ConversionServiceTest
     {
-
         [TestMethod]
         public void Should_conversion_1_RON_return_25_JPY_with_connected_currencies()
         {
@@ -17,8 +20,22 @@ namespace Test.Domain.Test
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("RON", "JPY", 1);
 
-            // ACT
+            // create dependency mock
+            var mock = new Mock<IDijkstraService>();
+            mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex>(), It.IsAny<Vertex>(), It.IsAny<Graph>()))
+                .Returns(new ShortestPathResult(true,
+                            new List<Vertex> {
+                                new Vertex("RON"),
+                                new Vertex("USD"),
+                                new Vertex("BGN"),
+                                new Vertex("JPY")
+                            }.AsEnumerable()));
+
+            // property injection of mock into service
             var svc = new ConversionService();
+            svc.IDijkstraService = mock.Object;
+
+            // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
@@ -33,8 +50,21 @@ namespace Test.Domain.Test
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("EUR", "USD", 46);
 
-            // ACT
+            // create dependency mock
+            var mock = new Mock<IDijkstraService>();
+            mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex>(), It.IsAny<Vertex>(), It.IsAny<Graph>()))
+                .Returns(new ShortestPathResult(true,
+                            new List<Vertex> {
+                                new Vertex("EUR"),
+                                new Vertex("CHF"),
+                                new Vertex("USD")
+                            }.AsEnumerable()));
+
+            // property injection of mock into service
             var svc = new ConversionService();
+            svc.IDijkstraService = mock.Object;
+
+            // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
@@ -49,8 +79,21 @@ namespace Test.Domain.Test
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("EUR", "USD", 45);
 
-            // ACT
+            // create dependency mock
+            var mock = new Mock<IDijkstraService>();
+            mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex>(), It.IsAny<Vertex>(), It.IsAny<Graph>()))
+                .Returns(new ShortestPathResult(true,
+                            new List<Vertex> {
+                                new Vertex("EUR"),
+                                new Vertex("CHF"),
+                                new Vertex("USD")
+                            }.AsEnumerable()));
+
+            // property injection of mock into service
             var svc = new ConversionService();
+            svc.IDijkstraService = mock.Object;
+
+            // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
@@ -66,8 +109,16 @@ namespace Test.Domain.Test
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesNotConnected;
             var conversionRequest = new ConversionRequest("USD", "UAH", 1);
 
-            // ACT
+            // create dependency mock
+            var mock = new Mock<IDijkstraService>();
+            mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex>(), It.IsAny<Vertex>(), It.IsAny<Graph>()))
+                .Returns(new ShortestPathResult(false, null));
+
+            // property injection of mock into service
             var svc = new ConversionService();
+            svc.IDijkstraService = mock.Object;
+
+            // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
