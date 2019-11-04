@@ -13,7 +13,12 @@ namespace Domain.Service
     public class ConversionService : IConversionService
     {
         [Dependency]
-        public IDijkstraService IDijkstraService;
+        private IDijkstraService _dijkstraService;
+
+        public ConversionService(IDijkstraService dijkstraService)
+        {
+            _dijkstraService = dijkstraService;
+        }
 
 
         public ConversionResult Convert(ConversionRequest request, IEnumerable<ExchangeRate> exchangeRates)
@@ -25,7 +30,7 @@ namespace Domain.Service
             // Find, if exist, the shortest conversion path that will be used to process the request
             Vertex vSource = new Vertex(request.SourceCurrency);
             Vertex vTarget = new Vertex(request.TargetCurrency);
-            var shorterPathResult = IDijkstraService.GetShortestPath(vSource, vTarget, graph);
+            var shorterPathResult = _dijkstraService.GetShortestPath(vSource, vTarget, graph);
 
             if (shorterPathResult.IsFound)
             {

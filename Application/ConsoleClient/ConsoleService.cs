@@ -10,20 +10,26 @@ namespace Application.ConsoleClient
     public class ConsoleService
     {
         [Dependency]
-        public IConversionService IConversionService { get; set; }
-        [Dependency]
-        public IValidationService<IEnumerable<string>> IValidationService { get; set; }
+        private IValidationService<IEnumerable<string>> _validationService { get; set; }
 
+        [Dependency]
+        private IConversionService _conversionService { get; set; }
+
+        public ConsoleService(IValidationService<IEnumerable<string>> validationService, IConversionService conversionService)
+        {
+            _validationService = validationService;
+            _conversionService = conversionService;
+        }
 
         public void Run(string filePath)
         {
             var lines = File.ReadAllLines(filePath);
 
-            if (IValidationService.IsValid(lines))
+            if (_validationService.IsValid(lines))
             {
                 // Faire la conversion
                 var cAdapter = new ConsoleAdapter();
-                var result = IConversionService.Convert(cAdapter.ToConversionRequest(lines), cAdapter.ToExchangesRates(lines));
+                var result = _conversionService.Convert(cAdapter.ToConversionRequest(lines), cAdapter.ToExchangesRates(lines));
                 if (result.IsSuccess)
                 {
                     Console.WriteLine(result.Amount);

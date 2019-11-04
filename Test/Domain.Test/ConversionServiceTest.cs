@@ -31,9 +31,7 @@ namespace Test.Domain.Test
                                 new Vertex("JPY")
                             }.AsEnumerable()));
 
-            // property injection of mock into service
-            var svc = new ConversionService();
-            svc.IDijkstraService = mock.Object;
+            var svc = new ConversionService(mock.Object);
 
             // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
@@ -60,9 +58,7 @@ namespace Test.Domain.Test
                                 new Vertex("USD")
                             }.AsEnumerable()));
 
-            // property injection of mock into service
-            var svc = new ConversionService();
-            svc.IDijkstraService = mock.Object;
+            var svc = new ConversionService(mock.Object);
 
             // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
@@ -89,9 +85,7 @@ namespace Test.Domain.Test
                                 new Vertex("USD")
                             }.AsEnumerable()));
 
-            // property injection of mock into service
-            var svc = new ConversionService();
-            svc.IDijkstraService = mock.Object;
+            var svc = new ConversionService(mock.Object);
 
             // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);
@@ -114,9 +108,7 @@ namespace Test.Domain.Test
             mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex>(), It.IsAny<Vertex>(), It.IsAny<Graph>()))
                 .Returns(new ShortestPathResult(false, null));
 
-            // property injection of mock into service
-            var svc = new ConversionService();
-            svc.IDijkstraService = mock.Object;
+            var svc = new ConversionService(mock.Object);
 
             // ACT
             var result = svc.Convert(conversionRequest, exchangeRates);

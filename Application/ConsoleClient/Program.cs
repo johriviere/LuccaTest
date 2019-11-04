@@ -1,8 +1,5 @@
-﻿using Application.Validation;
-using Domain.Service;
-using Ioc;
+﻿using Ioc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Unity;
 
