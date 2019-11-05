@@ -2,6 +2,6 @@
 {
     public static class ConversionErrorMessage
     {
-        public const string NO_PATH = "conversion impossible. no path found between source currency and target currency";
+        public const string NoPath = "conversion impossible. no path found between source currency and target currency";
     }
 }

@@ -9,9 +9,9 @@ namespace Application.ConsoleClient
 {
     public class ConsoleService
     {
-        private IValidationService<IEnumerable<string>> _validationService { get; set; }
+        private IValidationService<IEnumerable<string>> _validationService;
 
-        private IConversionService _conversionService { get; set; }
+        private IConversionService _conversionService;
 
         public ConsoleService(IValidationService<IEnumerable<string>> validationService, IConversionService conversionService)
         {

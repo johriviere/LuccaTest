@@ -8,11 +8,11 @@
 
         public LineConversionRequest(string line)
         {
-            SourceCurrency = line.Substring(0, Constants.CURRENCY_LENGTH);
-            TargetCurrency = line.Substring(line.LastIndexOf(Constants.SEPARATOR) + 1, Constants.CURRENCY_LENGTH);
+            SourceCurrency = line.Substring(0, Constants.CurrencyLength);
+            TargetCurrency = line.Substring(line.LastIndexOf(Constants.Separator) + 1, Constants.CurrencyLength);
 
-            var am = line.Substring(line.IndexOf(Constants.SEPARATOR) + 1,
-                                   line.LastIndexOf(Constants.SEPARATOR) - line.IndexOf(Constants.SEPARATOR) - 1);
+            var am = line.Substring(line.IndexOf(Constants.Separator) + 1,
+                                   line.LastIndexOf(Constants.Separator) - line.IndexOf(Constants.Separator) - 1);
             Amount = int.Parse(am);
         }
     }

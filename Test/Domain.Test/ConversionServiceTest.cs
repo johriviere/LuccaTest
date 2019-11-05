@@ -13,10 +13,10 @@ namespace Test.Domain.Test
     public class ConversionServiceTest
     {
         [TestMethod]
-        public void Should_conversion_550_EUR_return_59033_with_connected_currencies_of_test_instruction()
+        public void Should_conversion_550_EUR_return_59033_with_connected_currencies_of_exam_instructions()
         {
             // ARRANGE
-            List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesOfTestInstruction;
+            List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesOfExamInstructions;
             var conversionRequest = new ConversionRequest("EUR", "JPY", 550);
 
             // create dependency mock

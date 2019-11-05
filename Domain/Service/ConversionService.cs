@@ -33,7 +33,7 @@ namespace Domain.Service
             }
             else
             {
-                return new ConversionResult(false, null, ConversionErrorMessage.NO_PATH);
+                return new ConversionResult(false, null, ConversionErrorMessage.NoPath);
             }
         }
 
@@ -51,17 +51,17 @@ namespace Domain.Service
 
         private decimal GetRate(IEnumerable<ExchangeRate> exchangesRates, string sourceCurrency, string targetCurrency)
         {
-            decimal? rate1;
-            decimal rate2 = 0.0000m;
+            decimal? sourceToTargetRate;
+            decimal targetToSourceRate = 0.0000m;
 
-            rate1 = exchangesRates.SingleOrDefault(er => er.SourceCurrency.Equals(sourceCurrency) && er.TargetCurrency.Equals(targetCurrency))?.Rate;
+            sourceToTargetRate = exchangesRates.SingleOrDefault(er => er.SourceCurrency.Equals(sourceCurrency) && er.TargetCurrency.Equals(targetCurrency))?.Rate;
 
-            if (!rate1.HasValue)
+            if (!sourceToTargetRate.HasValue)
             {
-                rate2 = exchangesRates.SingleOrDefault(er => er.SourceCurrency.Equals(targetCurrency) && er.TargetCurrency.Equals(sourceCurrency)).Rate;
-                rate2 = Decimal.Round((1 / rate2), 4, MidpointRounding.AwayFromZero);
+                targetToSourceRate = exchangesRates.SingleOrDefault(er => er.SourceCurrency.Equals(targetCurrency) && er.TargetCurrency.Equals(sourceCurrency)).Rate;
+                targetToSourceRate = Decimal.Round((1 / targetToSourceRate), 4, MidpointRounding.AwayFromZero);
             }
-            return rate1 ?? rate2;
+            return sourceToTargetRate ?? targetToSourceRate;
         }
     }
 }

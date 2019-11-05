@@ -11,11 +11,11 @@ namespace Application.Validation.Console.Model
 
         public LineExchangeRate(string line)
         {
-            SourceCurrency = line.Substring(0, Constants.CURRENCY_LENGTH);
-            TargetCurrency = line.Substring(line.IndexOf(Constants.SEPARATOR) + 1, Constants.CURRENCY_LENGTH);
+            SourceCurrency = line.Substring(0, Constants.CurrencyLength);
+            TargetCurrency = line.Substring(line.IndexOf(Constants.Separator) + 1, Constants.CurrencyLength);
 
-            var rate = line.Substring(line.LastIndexOf(Constants.SEPARATOR) + 1,
-                                       line.Length - line.LastIndexOf(Constants.SEPARATOR) - 1);
+            var rate = line.Substring(line.LastIndexOf(Constants.Separator) + 1,
+                                       line.Length - line.LastIndexOf(Constants.Separator) - 1);
             Rate = Decimal.Parse(rate, CultureInfo.InvariantCulture);
         }
     }

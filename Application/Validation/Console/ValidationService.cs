@@ -17,13 +17,15 @@ namespace Application.Validation.Console
         }
         private bool IsValidFormatConsistency(IEnumerable<string> lines)
         {
-            if (lines.Count() >= Constants.MIN_LINES_INPUT_FILE)
+            if (lines.Count() >= Constants.MinLinesInputFile)
             {
-                var b1 = IsValidFormat(lines.First(), Constants.CONVERSION_REQUEST_LINE_REGEXP);
-                var b2 = IsValidFormat(lines.Skip(1).First(), Constants.EXCHANGE_RATE_COUNT_LINE_REGEXP);
-                var b3 = lines.Skip(2).All(l => IsValidFormat(l, Constants.EXCHANGE_RATE_LINE_REGEXP));
+                var isValidFormatConversionRequestLine = IsValidFormat(lines.First(), Constants.ConversionRequestLineRegexp);
+                var isValidFormatExchangeRateCountLine = IsValidFormat(lines.Skip(1).First(), Constants.ExchangeRateCountLineRegexp);
+                var isValidFormatExchangeRateLine = lines.Skip(2).All(l => IsValidFormat(l, Constants.ExchangeRateLineRegexp));
 
-                return b1 && b2 && b3;
+                return isValidFormatConversionRequestLine 
+                    && isValidFormatExchangeRateCountLine
+                    && isValidFormatExchangeRateLine;
             }
             return false;
         }
@@ -40,23 +42,28 @@ namespace Application.Validation.Console
 
             /* Check if declared count of 'exchange rate' lines
              * match real count of theses lines */
-            var test1 = inputFile.ExchangeRateCount.Count == inputFile.ExchangeRates.Count();
+            var declaredCountMatchRealCount = inputFile.ExchangeRateCount.Count == inputFile.ExchangeRates.Count();
 
             /* Check if any exchange rate doesn't contain 
              * the same value for source and target currency */
-            var test2 = !inputFile.ExchangeRates.Any(er => er.SourceCurrency == er.TargetCurrency);
+            var noEchangeRateContainingSameCurrency = !inputFile.ExchangeRates.Any(er => er.SourceCurrency == er.TargetCurrency);
 
             /* check that the 'source currency' of the 'conversion request'
              * exists at least once in the exchanges rates */
-            var test3 = inputFile.ExchangeRates.Any(er => er.SourceCurrency == inputFile.ConversionRequest.SourceCurrency)
+            var existAtLeastOneSourceCurrencyIntoExchangeRates = 
+                inputFile.ExchangeRates.Any(er => er.SourceCurrency == inputFile.ConversionRequest.SourceCurrency)
                      || inputFile.ExchangeRates.Any(er => er.TargetCurrency == inputFile.ConversionRequest.SourceCurrency);
 
             /* check that the 'target currency' of the 'conversion request'
              * exists at least once in the exchanges rates */
-            var test4 = inputFile.ExchangeRates.Any(er => er.SourceCurrency == inputFile.ConversionRequest.TargetCurrency)
+            var existAtLeastOneTargetCurrencyIntoExchangeRates = 
+                inputFile.ExchangeRates.Any(er => er.SourceCurrency == inputFile.ConversionRequest.TargetCurrency)
                     || inputFile.ExchangeRates.Any(er => er.TargetCurrency == inputFile.ConversionRequest.TargetCurrency);
 
-            return test1 && test2 && test3 && test4;
+            return declaredCountMatchRealCount 
+                && noEchangeRateContainingSameCurrency
+                && existAtLeastOneSourceCurrencyIntoExchangeRates
+                && existAtLeastOneTargetCurrencyIntoExchangeRates;
         }
     }
 }
