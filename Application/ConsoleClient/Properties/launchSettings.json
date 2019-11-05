@@ -1,8 +1,7 @@
 {
   "profiles": {
     "ConsoleClient": {
-      "commandName": "Project",
-      "commandLineArgs": "D:\\exampleSuccess.txt"
+      "commandName": "Project"
     }
   }
 }
