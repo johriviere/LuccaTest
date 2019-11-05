@@ -2,7 +2,7 @@
   "profiles": {
     "ConsoleClient": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\exampleFailNotConnected.txt"
+      "commandLineArgs": "D:\\exampleSuccess.txt"
     }
   }
 }

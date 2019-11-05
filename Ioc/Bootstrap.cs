@@ -1,7 +1,10 @@
 ﻿using Application.Validation;
 using Application.Validation.Console;
+using Domain.PrimaryPort;
+using Domain.SecondaryPort;
 using Domain.Service;
-using Domain.Service.Dijkstra;
+using Infrastructure.Adapter;
+using Infrastructure.Dijkstra;
 using System.Collections.Generic;
 using Unity;
 
@@ -21,7 +24,8 @@ namespace Ioc
         {
             Container.RegisterType<IConversionService, ConversionService>();
             Container.RegisterType<IValidationService<IEnumerable<string>>, ValidationService>();
-            Container.RegisterType<IDijkstraService, DijkstraService>();
+            Container.RegisterType<IShortestPathService, DijkstraAdapter>();
+            Container.RegisterType<IDijkstraService<string>, DijkstraService<string>>();
         }
     }
 }

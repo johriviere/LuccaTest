@@ -6,7 +6,6 @@
         public string TargetCurrency { get; }
         public decimal Rate { get; }
 
-
         public ExchangeRate(string sourceCurrency, string targetCurrency, decimal rate)
         {
             SourceCurrency = sourceCurrency;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Application.Validation.Console.Model;
@@ -16,7 +15,6 @@ namespace Application.Validation.Console
             }
             return false;
         }
-
         private bool IsValidFormatConsistency(IEnumerable<string> lines)
         {
             if (lines.Count() >= Constants.MIN_LINES_INPUT_FILE)
@@ -60,7 +58,5 @@ namespace Application.Validation.Console
 
             return test1 && test2 && test3 && test4;
         }
-
-
     }
 }

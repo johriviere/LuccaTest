@@ -1,7 +1,7 @@
 using Application.Validation.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test.Application.Test.Validation.Console
+namespace Test.Application.Test
 {
     [TestClass]
     public class ValidationServiceTest
@@ -65,6 +65,7 @@ namespace Test.Application.Test.Validation.Console
             // ASSERT
             Assert.IsFalse(result);
         }
+
         [TestMethod]
         public void Should_validation_return_false_if_inconsistent_file_with_exchange_rate_containing_duplicate_currency()
         {
@@ -74,6 +75,7 @@ namespace Test.Application.Test.Validation.Console
             // ASSERT
             Assert.IsFalse(result);
         }
+
         [TestMethod]
         public void Should_validation_return_false_if_inconsistent_file_with_no_exchange_rate_containing_source_currency()
         {
@@ -83,6 +85,7 @@ namespace Test.Application.Test.Validation.Console
             // ASSERT
             Assert.IsFalse(result);
         }
+
         [TestMethod]
         public void Should_validation_return_false_if_inconsistent_file_with_no_exchange_rate_containing_target_currency()
         {

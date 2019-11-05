@@ -2,7 +2,7 @@
 using Domain.Service.Result;
 using System.Collections.Generic;
 
-namespace Domain.Service
+namespace Domain.PrimaryPort
 {
     public interface IConversionService
     {

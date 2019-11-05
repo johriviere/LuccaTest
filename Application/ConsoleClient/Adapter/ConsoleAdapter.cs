@@ -3,7 +3,7 @@ using Domain.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Application.ConsoleClient
+namespace Application.ConsoleClient.Adapter
 {
     public class ConsoleAdapter
     {

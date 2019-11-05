@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Test.Application.Test.Validation.Console
+namespace Test.Application.Test
 {
     public static class Fake
     {

@@ -1,9 +1,9 @@
-﻿using Application.Validation;
-using Domain.Service;
+﻿using Application.ConsoleClient.Adapter;
+using Application.Validation;
+using Domain.PrimaryPort;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unity;
 
 namespace Application.ConsoleClient
 {
@@ -43,6 +43,5 @@ namespace Application.ConsoleClient
                 Console.WriteLine($"the file {filePath} contains inconsistent datas.");
             }
         }
-
     }
 }
