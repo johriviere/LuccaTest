@@ -1,4 +1,6 @@
-﻿using Domain.PrimaryPort;
+﻿using Application.ConsoleClient.Validation;
+using Application.Validation.Console;
+using Domain.PrimaryPort;
 using Domain.SecondaryPort;
 using Domain.Service;
 using Infrastructure.Adapter;
@@ -6,7 +8,7 @@ using Infrastructure.Dijkstra;
 using System.Collections.Generic;
 using Unity;
 
-namespace Ioc
+namespace Application.ConsoleClient.Ioc
 {
     public class Bootstrap
     {

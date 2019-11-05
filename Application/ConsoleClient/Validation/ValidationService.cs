@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Application.ConsoleClient.Validation;
+using Application.ConsoleClient.Validation.Model;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Application.Validation.Console.Model;
 
 namespace Application.Validation.Console
 {

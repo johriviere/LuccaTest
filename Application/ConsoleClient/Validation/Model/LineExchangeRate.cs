@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Application.Validation.Console;
+using System;
 using System.Globalization;
 
-namespace Application.Validation.Console.Model
+namespace Application.ConsoleClient.Validation.Model
 {
     public class LineExchangeRate
     {

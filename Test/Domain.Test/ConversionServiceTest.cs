@@ -1,6 +1,7 @@
 ﻿using Domain.Model;
 using Domain.SecondaryPort;
 using Domain.Service;
+using Domain.Service.Constants;
 using Domain.Service.Result;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -32,6 +33,7 @@ namespace Test.Domain.Test
             // ASSERT
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(59033, result.Amount);
+            Assert.IsNull(result.ErrorMessage);
         }
 
         [TestMethod]
@@ -54,6 +56,7 @@ namespace Test.Domain.Test
             // ASSERT
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(25, result.Amount);
+            Assert.IsNull(result.ErrorMessage);
         }
 
         [TestMethod]
@@ -76,6 +79,7 @@ namespace Test.Domain.Test
             // ASSERT
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(51, result.Amount);
+            Assert.IsNull(result.ErrorMessage);
         }
 
         [TestMethod]
@@ -98,6 +102,7 @@ namespace Test.Domain.Test
             // ASSERT
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(50, result.Amount);
+            Assert.IsNull(result.ErrorMessage);
         }
 
         [TestMethod]
@@ -119,6 +124,8 @@ namespace Test.Domain.Test
 
             // ASSERT
             Assert.IsFalse(result.IsSuccess);
+            Assert.IsNull(result.Amount);
+            Assert.AreEqual(ConversionErrorMessage.NoPath, result.ErrorMessage);
         }
     }
 }

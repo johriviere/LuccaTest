@@ -1,4 +1,6 @@
-﻿namespace Application.Validation.Console.Model
+﻿using Application.Validation.Console;
+
+namespace Application.ConsoleClient.Validation.Model
 {
     public class LineConversionRequest
     {

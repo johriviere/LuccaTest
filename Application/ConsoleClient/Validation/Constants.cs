@@ -1,4 +1,4 @@
-﻿namespace Application.Validation.Console
+﻿namespace Application.ConsoleClient.Validation
 {
     public static class Constants
     {

@@ -1,4 +1,5 @@
-﻿using Ioc;
+﻿using Application.ConsoleClient.Adapter;
+using Application.ConsoleClient.Ioc;
 using System;
 using System.IO;
 using Unity;
@@ -12,8 +13,8 @@ namespace Application.ConsoleClient
             if (IsValidArgument(args))
             {
                 Bootstrap.Start();
-                var runner = Bootstrap.Container.Resolve<ConsoleService>();
-                runner.Run(args[0]);
+                var consoleAdapter = Bootstrap.Container.Resolve<ConsoleAdapter>();
+                consoleAdapter.Run(args[0]);
             }
             else
             {

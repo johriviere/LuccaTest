@@ -1,4 +1,4 @@
-﻿namespace Application.Validation.Console.Model
+﻿namespace Application.ConsoleClient.Validation.Model
 {
     public class LineExchangeRateCount
     {
