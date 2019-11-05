@@ -6,4 +6,8 @@
     <RootNamespace>Application.Validation</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Console\" />
+  </ItemGroup>
+
 </Project>

@@ -31,5 +31,16 @@ namespace Test.Domain.Test
             new ExchangeRate("BGN", "JPY", 61.8563m),
             new ExchangeRate("BGN", "USD", 0.5677m)
         };
+
+        // connected graph (with exchanges rates defined into instructions of this exam)
+        public static List<ExchangeRate> ExchangeRatesOfExamInstructions = new List<ExchangeRate>
+        {
+            new ExchangeRate("AUD", "CHF", 0.9661m),
+            new ExchangeRate("JPY", "KWU", 13.1151m),
+            new ExchangeRate("EUR", "CHF", 1.2053m),
+            new ExchangeRate("AUD", "JPY", 86.0305m),
+            new ExchangeRate("EUR", "USD", 1.2989m),
+            new ExchangeRate("JPY", "INR", 0.6571m),
+        };
     }
 }
