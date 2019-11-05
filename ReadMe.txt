@@ -86,3 +86,7 @@ https://www.youtube.com/watch?v=ZdY1Fp9dKzs&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOT
 2. Algorithme du plus court chemin
 https://www.youtube.com/watch?v=4gvV7X1vcws
 
+
+Controle de code source
+-----------------------
+J'utilise Git et mon projet est heberge dans un repository prive sur mon espace GitHub.

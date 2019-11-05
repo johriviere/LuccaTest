@@ -17,7 +17,6 @@ namespace Application.ConsoleClient.Ioc
         {
             Container = new UnityContainer();
             Register();
-
         }
 
         private static void Register()
