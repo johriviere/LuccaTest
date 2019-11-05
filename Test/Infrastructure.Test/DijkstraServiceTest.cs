@@ -32,7 +32,7 @@ namespace Infrastructure.Test
 
             var graph = new Graph<string> { Vertices = vertices, Edges = edges };
 
-            var expectedResult = new ShortestPathResult<string>(true, new List<Vertex<string>>
+            var expectedResult = new DijkstraShortestPathResult<string>(true, new List<Vertex<string>>
             {
                 vSource, vCHF, vTarget
             });

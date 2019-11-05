@@ -18,7 +18,7 @@ namespace Application.ConsoleClient
             }
             else
             {
-                Console.WriteLine(ErrorMessage.INVALID_ARGUMENT);
+                Console.WriteLine(ErrorMessage.InvalidArgument);
             }
             Console.ReadKey();
         }

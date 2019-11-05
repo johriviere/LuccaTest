@@ -7,6 +7,6 @@ namespace Infrastructure.Dijkstra
     public interface IDijkstraService<Tv>
         where Tv : IEquatable<Tv>
     {
-        ShortestPathResult<Tv> GetShortestPath(Vertex<Tv> vSource, Vertex<Tv> vTarget, Graph<Tv> graph);
+        DijkstraShortestPathResult<Tv> GetShortestPath(Vertex<Tv> vSource, Vertex<Tv> vTarget, Graph<Tv> graph);
     }
 }

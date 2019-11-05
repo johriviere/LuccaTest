@@ -9,7 +9,7 @@ namespace Infrastructure.Dijkstra
     public class DijkstraService<Tv> : IDijkstraService<Tv>
         where Tv : IEquatable<Tv>
     {
-        public ShortestPathResult<Tv> GetShortestPath(Vertex<Tv> vSource, Vertex<Tv> vTarget, Graph<Tv> graph)
+        public DijkstraShortestPathResult<Tv> GetShortestPath(Vertex<Tv> vSource, Vertex<Tv> vTarget, Graph<Tv> graph)
         {
             /* Video source from which the algorithm was built
             * https://www.youtube.com/watch?v=4gvV7X1vcws */
@@ -17,7 +17,7 @@ namespace Infrastructure.Dijkstra
             graph.SetDistance(vSource, 0);
             var predecessors = GetPredecessors(vSource, graph);
             var shortestPath = GetShortestPath(predecessors, vTarget);
-            return shortestPath.Count > 1 ? new ShortestPathResult<Tv>(true, shortestPath) : new ShortestPathResult<Tv>(false);
+            return shortestPath.Count > 1 ? new DijkstraShortestPathResult<Tv>(true, shortestPath) : new DijkstraShortestPathResult<Tv>(false);
         }
 
         private List<Predecessor<Tv>> GetPredecessors(Vertex<Tv> vSource, Graph<Tv> graph)

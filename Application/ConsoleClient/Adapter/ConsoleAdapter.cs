@@ -26,7 +26,6 @@ namespace Application.ConsoleClient.Adapter
 
             if (_validationService.IsValid(lines))
             {
-                // Faire la conversion
                 var result = _conversionService.Convert(ToConversionRequest(lines), ToExchangesRates(lines));
                 if (result.IsSuccess)
                 {
@@ -39,7 +38,7 @@ namespace Application.ConsoleClient.Adapter
             }
             else
             {
-                Console.WriteLine(ErrorMessage.INCONSISTENT_INPUT_DATA);
+                Console.WriteLine(ErrorMessage.InconsistentInputData);
                 Console.WriteLine($"the file {filePath} contains inconsistent datas.");
             }
         }

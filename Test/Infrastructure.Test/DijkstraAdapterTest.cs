@@ -35,7 +35,7 @@ namespace Infrastructure.Test
             // create dependency mock
             var mock = new Mock<IDijkstraService<string>>();
             mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex<string>>(), It.IsAny<Vertex<string>>(), It.IsAny<Graph<string>>()))
-                .Returns(new Dijkstra.Result.ShortestPathResult<string>(true,
+                .Returns(new Dijkstra.Result.DijkstraShortestPathResult<string>(true,
                                                                         new List<Vertex<string>>{
                                                                         new Vertex<string>("ARS"),
                                                                         new Vertex<string>("UAH"),
@@ -74,7 +74,7 @@ namespace Infrastructure.Test
             // create dependency mock
             var mock = new Mock<IDijkstraService<string>>();
             mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex<string>>(), It.IsAny<Vertex<string>>(), It.IsAny<Graph<string>>()))
-                .Returns(new Dijkstra.Result.ShortestPathResult<string>(false, null));
+                .Returns(new Dijkstra.Result.DijkstraShortestPathResult<string>(false, null));
             
             var svc = new DijkstraAdapter(mock.Object);
 

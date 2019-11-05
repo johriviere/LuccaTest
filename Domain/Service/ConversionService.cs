@@ -44,7 +44,6 @@ namespace Domain.Service
             {
                 var rate = GetRate(exchangeRates, conversionPath[i], conversionPath[i + 1]);
                 result = Decimal.Round(result * rate, 4, MidpointRounding.AwayFromZero);
-
             }
             return result;
         }

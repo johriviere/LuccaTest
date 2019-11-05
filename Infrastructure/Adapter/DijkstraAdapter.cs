@@ -3,6 +3,7 @@ using Domain.SecondaryPort;
 using Domain.Service.Result;
 using Infrastructure.Dijkstra;
 using Infrastructure.Dijkstra.Model;
+using Infrastructure.Dijkstra.Result;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,10 +45,8 @@ namespace Infrastructure.Adapter
             return graph;
         }
 
-        private ShortestPathResult ToShortestPathResult(Dijkstra.Result.ShortestPathResult<string> result)
+        private ShortestPathResult ToShortestPathResult(DijkstraShortestPathResult<string> result)
         {
-            /* convert object 'result' of 'Infrastructure' layer to object "result" of 'Domain' layer
-             * in order to not corrupt layers */
             if (result.IsFound)
             {
                 var path = result.Path.Select(v => v.Id);
