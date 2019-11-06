@@ -89,4 +89,4 @@ https://www.youtube.com/watch?v=4gvV7X1vcws
 
 Controle de code source
 -----------------------
-J'utilise Git et mon projet est heberge dans un repository prive sur mon espace GitHub.
+J'utilise Git et mon projet est heberge sur GitHub
