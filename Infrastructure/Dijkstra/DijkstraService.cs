@@ -15,20 +15,19 @@ namespace Infrastructure.Dijkstra
             * https://www.youtube.com/watch?v=4gvV7X1vcws */
 
             graph.SetDistance(vSource, 0);
-            var predecessors = GetPredecessors(vSource, graph);
+            var predecessors = GetPredecessors(vSource, vTarget, graph);
             var shortestPath = GetShortestPath(predecessors, vTarget);
             return shortestPath.Count > 1 ? new DijkstraShortestPathResult<Tv>(true, shortestPath) : new DijkstraShortestPathResult<Tv>(false);
         }
 
-        private List<Predecessor<Tv>> GetPredecessors(Vertex<Tv> vSource, Graph<Tv> graph)
+        private List<Predecessor<Tv>> GetPredecessors(Vertex<Tv> vSource, Vertex<Tv> vTarget, Graph<Tv> graph)
         {
             var predecessors = new List<Predecessor<Tv>>();
             var vComparer = new VertexComparer<Tv>();
-
-
+            var isTargetReached = false;
             var vTreatables = graph.Vertices.Where(v => v.Id.Equals(vSource.Id)).ToList();
 
-            while (vTreatables.Any() && vTreatables.Any(v => v.Distance != double.PositiveInfinity))
+            while (vTreatables.Any() && vTreatables.Any(v => v.Distance != double.PositiveInfinity) && !isTargetReached)
             {
                 var vToTreat = vTreatables.OrderBy(v => v.Distance).ThenBy(v => v.Id).First(); // Find the new vertex to treat
 
@@ -46,19 +45,12 @@ namespace Infrastructure.Dijkstra
                         if (dis < sibling.Distance) // distance from source vertex is shorter
                         {
                             sibling.Distance = dis; // Set the new distance on the current vertex
-                            var pred = predecessors.SingleOrDefault(p => p.Vertex1.Id.Equals(sibling.Id)); // !!! to check : is it the right test ? It is possible in my case (all road have same weight)
-                            if (pred == null)
-                            {
-                                predecessors.Add(new Predecessor<Tv>(sibling, vToTreat));
-                            }
-                            else
-                            {
-                                pred.Vertex2 = vToTreat;
-                            }
+                            predecessors.Add(new Predecessor<Tv>(sibling, vToTreat));
                         }
                     }
                 }
                 vToTreat.IsTreated = true;
+                isTargetReached = predecessors.Exists(p => p.Vertex1.Equals(vTarget));
                 vTreatables = graph.Vertices.Where(v => !v.IsTreated).ToList();
             }
             return predecessors;
