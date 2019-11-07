@@ -30,9 +30,9 @@ namespace Infrastructure.Dijkstra
 
             while (vTreatables.Any() && vTreatables.Any(v => v.Distance != double.PositiveInfinity))
             {
-                var vToTreat = vTreatables.OrderBy(v => v.Distance).First(); // Find the new vertex to treat
+                var vToTreat = vTreatables.OrderBy(v => v.Distance).ThenBy(v => v.Id).First(); // Find the new vertex to treat
 
-                // Get its untreated vertex brothers
+                // Get its untreated vertices brothers
                 var s1 = graph.Edges.Where(e => e.Vertex1.Id.Equals(vToTreat.Id)).Select(e => e.Vertex2);
                 var s2 = graph.Edges.Where(e => e.Vertex2.Id.Equals(vToTreat.Id)).Select(v => v.Vertex1);
 
