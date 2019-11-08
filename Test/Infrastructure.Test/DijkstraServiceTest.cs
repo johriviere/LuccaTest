@@ -46,7 +46,71 @@ namespace Infrastructure.Test
             Assert.IsTrue(expectedResult.IsFound);
             Assert.IsTrue(Enumerable.SequenceEqual(expectedResult.Path, result.Path, new VertexComparer<string>()));
         }
-       
+
+        [TestMethod]
+        public void Should_find_path_with_currencies_in_connected_graph_with_multiple_paths_with_same_distance()
+        {
+            // ARRANGE
+            var vSource = new Vertex<string>("EUR");
+            var vTarget = new Vertex<string>("USD");
+            var vARS = new Vertex<string>("ARS");
+            var vGBF = new Vertex<string>("GBF");
+            var vIDR = new Vertex<string>("IDR");
+            var vBIF = new Vertex<string>("BIF");
+            var vFKP = new Vertex<string>("FKP");
+            var vHTG = new Vertex<string>("HTG");
+            var vCAD = new Vertex<string>("CAD");
+            var vDJF = new Vertex<string>("DJF");
+            var vJMD = new Vertex<string>("JMD");
+
+            List<Vertex<string>> vertices = new List<Vertex<string>>
+            {
+                vSource,
+                vTarget,
+                vARS, vGBF, vIDR,
+                vBIF, vFKP, vHTG,
+                vCAD, vDJF, vJMD
+            };
+            List<Edge<string>> edges = new List<Edge<string>>
+            {
+                new Edge<string> { Vertex1 = vSource, Vertex2 = vARS },
+                new Edge<string> { Vertex1 = vARS, Vertex2 = vGBF },
+                new Edge<string> { Vertex1 = vGBF, Vertex2 = vIDR },
+                new Edge<string> { Vertex1 = vIDR, Vertex2 = vTarget },
+
+                new Edge<string> { Vertex1 = vSource, Vertex2 = vBIF },
+                new Edge<string> { Vertex1 = vBIF, Vertex2 = vFKP },
+                new Edge<string> { Vertex1 = vFKP, Vertex2 = vHTG },
+                new Edge<string> { Vertex1 = vHTG, Vertex2 = vTarget },
+
+                new Edge<string> { Vertex1 = vSource, Vertex2 = vCAD },
+                new Edge<string> { Vertex1 = vCAD, Vertex2 = vDJF },
+                new Edge<string> { Vertex1 = vDJF, Vertex2 = vJMD },
+                new Edge<string> { Vertex1 = vJMD, Vertex2 = vTarget },
+            };
+
+            var graph = new Graph<string> { Vertices = vertices, Edges = edges };
+
+            /* if it exists 2 or more paths of same distance as here : 
+             * EUR-ARS-GBF-IDR-USD
+             * EUR-BIF-FKP-HTG-USD
+             * EUR-CAD-DJF-JMD-USD,
+             * the algorithm take the path with the 'before last' ID is lowest alphabetically (closest of letter A) */
+            var expectedResult = new DijkstraShortestPathResult<string>(true, new List<Vertex<string>>
+            {
+                vSource, vBIF, vFKP, vHTG, vTarget
+            });
+
+            var svc = new DijkstraService<string>();
+
+            // ACT
+            var result = svc.GetShortestPath(vSource, vTarget, graph);
+
+            // ASSERT
+            Assert.IsTrue(expectedResult.IsFound);
+            Assert.IsTrue(Enumerable.SequenceEqual(expectedResult.Path, result.Path, new VertexComparer<string>()));
+        }
+
         [TestMethod]
         public void Should_not_find_path_with_currencies_in_two_unconnected_graphs()
         {
