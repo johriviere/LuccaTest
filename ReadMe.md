@@ -12,7 +12,7 @@ De plus la conversion demandée est possible (existence d'au moins un chemin pos
 2. Cas anormaux
 	* L'utilisateur utilise le programme sans argument.
 	* L'utilisateur utilise un fichier d'entrée non cohérent (cohérence du format ou cohérence logique).
-	* L'utilisateur utilise un fichier d'entrée cohérent, cependant la conversion ne peut pas être effectuée car il n'y a pas de chemin possible entre la devise source et la devise cible.
+	* L'utilisateur utilise un fichier d'entrée cohérent, cependant, la conversion ne peut pas être effectuée car il n'y a pas de chemin possible entre la devise source et la devise cible.
 
 # Théorie des graphes
 ## Contexte
