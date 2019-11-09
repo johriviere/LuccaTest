@@ -7,12 +7,12 @@ Le projet gère les cas d'utilisation suivants :
 
 1. Cas standard
 	* L'utilisateur utilise le programme avec un fichier d'entrée cohérent.  
-De plus la conversion demandée est possible (existence d'au moins un lien de proche en proche entre la devise source et la devise cible).
+De plus la conversion demandée est possible (existence d'au moins un chemin possible de proche en proche entre la devise source et la devise cible).
 
 2. Cas anormaux
 	* L'utilisateur utilise le programme sans argument.
 	* L'utilisateur utilise un fichier d'entrée non cohérent (cohérence du format ou cohérence logique).
-	* L'utilisateur utilise un fichier d'entrée cohérent, cependant la conversion ne peut pas être effectuée car il n'y a pas de lien possible entre la devise source et la devise cible.
+	* L'utilisateur utilise un fichier d'entrée cohérent, cependant la conversion ne peut pas être effectuée car il n'y a pas de chemin possible entre la devise source et la devise cible.
 
 # Théorie des graphes
 ## Contexte
@@ -22,10 +22,14 @@ Une partie de la consigne est :
 La résolution de cette problématique est assimilable à **une recherche du plus court chemin** pour aller d'une *devise source*
 à une *devise cible* dans un **graphe** *(liste de taux de change)*.
 
-
-## Generalités sur les graphes
+## Généralités sur les graphes
 * [Introduction to graphs](https://www.youtube.com/watch?v=gXgEDyodOJU&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=39&t=0s)
 * [Properties of graphs](https://www.youtube.com/watch?v=AfYqN3fGapc&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=39)
+
+Les propriétés du graphe représentant ce problème sont :
+* **Graphe simple** (pas de *self-loop*, pas de *multi-edge*)
+	* **non orienté (*undirected*)**  
+	* **sans notion de poids (*unweighted*)**
 
 ## Représentation d'un graphe
 Un graphe peut être représenté de différentes façons.
@@ -40,15 +44,15 @@ Il s'agit de la quantité de mémoire utilisée pour représenter les données d
 Il s'agit de la performance des algorithmes qui vont pouvoir s'appliquer sur le graphe.  
 Par exemple : 
 	* trouver si deux sommets sont connectés
-	* trouver tous les sommets adacents à un sommet donné
+	* trouver tous les sommets adjacents à un sommet donné
 
 Dans ce projet, j'ai choisi de représenter les données en __Edge list__.
 
 ## Algorithme du plus court chemin
 Plusieurs algorithmes existent pour trouver le plus court chemin entre 2 sommets dans un graphe : 
-* Algortihme de Dijkstra
-* Algorithme de Bellman-Ford
-* Algorithme de Floyd-Warshall
+* Dijkstra
+* Bellman-Ford
+* Floyd-Warshall
 
 Dans ce projet j'ai choisi d'implémenter l'algorithme de **Dijkstra**.
 * [Video : mise en application pas à pas de l'algorithme de Dijkstra](https://www.youtube.com/watch?v=4gvV7X1vcws)
@@ -71,7 +75,7 @@ Dans ce projet j'ai choisi d'implémenter l'algorithme de **Dijkstra**.
 Le code et les concepts métier sont isolés dans la zone _**Domain**_. La zone _**Domain**_ ne dépend de rien.
 Il ne doit exister aucun concept technique dans dans la zone _**Domain**_.  
 La zone _**Domain**_ contient des ports : 
-* ports primaires : ports à brancher avec la zone _**Application**_
+* ports primaires : ports à brancher sur la zone _**Application**_
 * ports secondaires : ports à brancher sur la zone _**Infrastructure**_
 Le branchement aux ports se fait via des _Adapter_.
 
@@ -94,17 +98,19 @@ On peut imaginer implémenter des algorithmes alternatifs pour trouver le plus c
 
 
 # Tests
-Les projets de tests utilisent le framework _MSTest_.
-Le framework de simulacre est _Moq_.
+## Tests unitaires
+Les projets de tests utilisent le framework de tests unitaires [MSTest](https://docs.microsoft.com/en-us/visualstudio/test/using-microsoft-visualstudio-testtools-unittesting-members-in-unit-tests?view=vs-2019).  
+Le framework de simulacre est [Moq](https://github.com/moq/moq4).
 
-# IoC
-Dans ce projet, j'ai utilise l'IoC.  
-C'est obligatoire lorsque qu'on fait une architecture hexagonale.  
-L'IoC est utilisée pour rendre indépendante la zone _**Domain**_.
+# Inversion Of Control (IoC)
+Dans ce projet, j'ai utilise l'IoC. J'utilise notamment ce principe pour rendre indépendante la zone _**Domain**_ de l'architecture hexagonale.  
+L'IoC est l'un des 5 principes [SOLID](https://essential-dev-skills.com/principe-solid/).
 * https://www.tutorialsteacher.com/ioc
+* https://stackify.com/dependency-inversion-principle/
 
-Pour faire l'njection de dépendance, j'ai utilisé le container IoC _Unity_.
+Pour faire l'injection de dépendance, j'ai utilisé le container IoC _Unity_.
 * https://www.tutorialsteacher.com/ioc/unity-container
+
 J'ai choisi d'injecter les dépendances par constructeur.
 * https://www.tutorialsteacher.com/ioc/dependency-injection
 * https://www.tutorialsteacher.com/ioc/constructor-injection-using-unity-container
