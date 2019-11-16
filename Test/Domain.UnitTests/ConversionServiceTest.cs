@@ -8,7 +8,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Test.Domain.Test
+namespace Test.Domain.UnitTests
 {
     [TestClass]
     public class ConversionServiceTest

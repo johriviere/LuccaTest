@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>Test.Application.Test</AssemblyName>
+    <AssemblyName>Test.Application.UnitTests</AssemblyName>
 
-    <RootNamespace>Test.Application.Test</RootNamespace>
+    <RootNamespace>Test.Application.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.Linq;
 using Domain.Service.Result;
 using Infrastructure.Dijkstra.Model;
 
-namespace Infrastructure.Test
+namespace Infrastructure.UnitTests
 {
     [TestClass]
     public class DijkstraAdapterTest

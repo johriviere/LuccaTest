@@ -1,7 +1,7 @@
 using Application.Validation.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test.Application.Test
+namespace Test.Application.UnitTests
 {
     [TestClass]
     public class ValidationServiceTest

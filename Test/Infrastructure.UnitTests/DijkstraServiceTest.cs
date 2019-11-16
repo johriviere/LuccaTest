@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Infrastructure.Test
+namespace Infrastructure.UnitTests
 {
     [TestClass]
     public class DijkstraServiceTest
