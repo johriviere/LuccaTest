@@ -1,5 +1,6 @@
 using Application.Validation.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Test.Application.UnitTests
 {
@@ -13,7 +14,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.ConsistentFileLines);
             // ASSERT
-            Assert.IsTrue(result);
+            result.Should().BeTrue();
         }
 
         [TestMethod]
@@ -23,7 +24,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWithIncorrectConversionRequestLine);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -33,7 +34,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWithIncorrectExchangeRateCountLine);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -43,7 +44,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWithAtLeastOneIncorrectExchangeRateLine);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -53,7 +54,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWithLessThan3Lines);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -63,7 +64,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWithDeclaredCountAndRealCountNotMatch);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -73,7 +74,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWitExchangeRateContainingDuplicateCurrency);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -83,7 +84,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWitNoExchangeRateContainingSourceCurrency);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -93,7 +94,7 @@ namespace Test.Application.UnitTests
             ValidationService svc = new ValidationService();
             var result = svc.IsValid(Fake.InconsistentFileLinesWitNoExchangeRateContainingTargetCurrency);
             // ASSERT
-            Assert.IsFalse(result);
+            result.Should().BeFalse();
         }
     }
 }

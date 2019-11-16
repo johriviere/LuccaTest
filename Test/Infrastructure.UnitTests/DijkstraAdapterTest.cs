@@ -5,8 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Service.Result;
 using Infrastructure.Dijkstra.Model;
+using FluentAssertions;
 
 namespace Infrastructure.UnitTests
 {
@@ -32,7 +32,6 @@ namespace Infrastructure.UnitTests
 
             var conversionRequest = new ConversionRequest("ARS", "JPY", 35);
 
-            // create dependency mock
             var mock = new Mock<IDijkstraService<string>>();
             mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex<string>>(), It.IsAny<Vertex<string>>(), It.IsAny<Graph<string>>()))
                 .Returns(new Dijkstra.Result.DijkstraShortestPathResult<string>(true,
@@ -48,9 +47,8 @@ namespace Infrastructure.UnitTests
             var result = svc.Get(conversionRequest, exchangeRates);
 
             // ASSERT
-            var expectedResult = new ShortestPathResult(true, new List<string> { "ARS", "UAH", "BGN", "JPY" }.AsEnumerable());
-            Assert.AreEqual(expectedResult.IsFound, result.IsFound);
-            Assert.IsTrue(Enumerable.SequenceEqual(expectedResult.Path, result.Path));
+            result.IsFound.Should().BeTrue();
+            result.Path.Should().BeEquivalentTo(new[]{ "ARS", "UAH", "BGN", "JPY"}, options => options.WithStrictOrdering());
         }
 
         [TestMethod]
@@ -71,7 +69,6 @@ namespace Infrastructure.UnitTests
 
             var conversionRequest = new ConversionRequest("ARS", "JPY", 35);
 
-            // create dependency mock
             var mock = new Mock<IDijkstraService<string>>();
             mock.Setup(m => m.GetShortestPath(It.IsAny<Vertex<string>>(), It.IsAny<Vertex<string>>(), It.IsAny<Graph<string>>()))
                 .Returns(new Dijkstra.Result.DijkstraShortestPathResult<string>(false, null));
@@ -82,8 +79,8 @@ namespace Infrastructure.UnitTests
             var result = svc.Get(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsFalse(result.IsFound);
-            Assert.IsNull(result.Path);
+            result.IsFound.Should().BeFalse();
+            result.Path.Should().BeNull();
         }
     }
 }

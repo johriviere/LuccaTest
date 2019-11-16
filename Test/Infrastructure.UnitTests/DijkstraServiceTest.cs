@@ -1,9 +1,8 @@
 ﻿using Infrastructure.Dijkstra;
 using Infrastructure.Dijkstra.Model;
-using Infrastructure.Dijkstra.Result;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
+using FluentAssertions;
 
 namespace Infrastructure.UnitTests
 {
@@ -31,20 +30,16 @@ namespace Infrastructure.UnitTests
             };
 
             var graph = new Graph<string> { Vertices = vertices, Edges = edges };
-
-            var expectedResult = new DijkstraShortestPathResult<string>(true, new List<Vertex<string>>
-            {
-                vSource, vCHF, vTarget
-            });
-
             var svc = new DijkstraService<string>();
 
             // ACT
             var result = svc.GetShortestPath(vSource, vTarget, graph);
 
             // ASSERT
-            Assert.IsTrue(expectedResult.IsFound);
-            Assert.IsTrue(Enumerable.SequenceEqual(expectedResult.Path, result.Path, new VertexComparer<string>()));
+            result.IsFound.Should().BeTrue();
+
+            var expectedPath = new List<Vertex<string>> { vSource, vCHF, vTarget };
+            result.Path.Should().BeEquivalentTo(expectedPath, options => options.Including(v => v.Id).WithStrictOrdering());
         }
 
         [TestMethod]
@@ -90,25 +85,21 @@ namespace Infrastructure.UnitTests
             };
 
             var graph = new Graph<string> { Vertices = vertices, Edges = edges };
-
-            /* if it exists 2 or more paths of same distance as here : 
-             * EUR-ARS-GBF-IDR-USD
-             * EUR-BIF-FKP-HTG-USD
-             * EUR-CAD-DJF-JMD-USD,
-             * the algorithm take the path with the 'before last' ID is lowest alphabetically (closest of letter A) */
-            var expectedResult = new DijkstraShortestPathResult<string>(true, new List<Vertex<string>>
-            {
-                vSource, vBIF, vFKP, vHTG, vTarget
-            });
-
             var svc = new DijkstraService<string>();
 
             // ACT
             var result = svc.GetShortestPath(vSource, vTarget, graph);
 
             // ASSERT
-            Assert.IsTrue(expectedResult.IsFound);
-            Assert.IsTrue(Enumerable.SequenceEqual(expectedResult.Path, result.Path, new VertexComparer<string>()));
+            result.IsFound.Should().BeTrue();
+
+            /* if it exists 2 or more paths of same distance as here : 
+             * EUR-ARS-GBF-IDR-USD
+             * EUR-BIF-FKP-HTG-USD
+             * EUR-CAD-DJF-JMD-USD,
+             * the algorithm take the path with the 'before last' ID is lowest alphabetically (closest of letter A) */
+            var expectedPath = new List<Vertex<string>> { vSource, vBIF, vFKP, vHTG, vTarget };
+            result.Path.Should().BeEquivalentTo(expectedPath, options => options.Including(v => v.Id).WithStrictOrdering());
         }
 
         [TestMethod]
@@ -134,15 +125,14 @@ namespace Infrastructure.UnitTests
             };
 
             var graph = new Graph<string> { Vertices = vertices, Edges = edges };
-
             var svc = new DijkstraService<string>();
 
             // ACT
             var result = svc.GetShortestPath(vSource, vTarget, graph);
 
             // ASSERT
-            Assert.IsFalse(result.IsFound);
-            Assert.IsNull(result.Path);
+            result.IsFound.Should().BeFalse();
+            result.Path.Should().BeNull();
         }
     }
 }

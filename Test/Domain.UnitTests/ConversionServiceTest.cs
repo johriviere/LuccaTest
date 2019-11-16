@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 
 namespace Test.Domain.UnitTests
 {
@@ -14,7 +15,7 @@ namespace Test.Domain.UnitTests
     public class ConversionServiceTest
     {
         [TestMethod]
-        public void Should_conversion_550_EUR_return_59033_with_connected_currencies_of_exam_instructions()
+        public void Should_conversion_550_EUR_return_59033_JPY_with_connected_currencies_of_exam_instructions()
         {
             // ARRANGE
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesOfExamInstructions;
@@ -31,9 +32,9 @@ namespace Test.Domain.UnitTests
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(59033, result.Amount);
-            Assert.IsNull(result.ErrorMessage);
+            result.IsSuccess.Should().BeTrue();
+            result.Amount.Should().Be(59033);
+            result.ErrorMessage.Should().BeNull();
         }
 
         [TestMethod]
@@ -43,7 +44,6 @@ namespace Test.Domain.UnitTests
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("RON", "JPY", 1);
 
-            // create dependency mock
             var mock = new Mock<IShortestPathService>();
             mock.Setup(m => m.Get(It.IsAny<ConversionRequest>(), It.IsAny<IEnumerable<ExchangeRate>>()))
                 .Returns(new ShortestPathResult(true, new List<string> { "RON", "USD", "BGN", "JPY"}.AsEnumerable()));
@@ -54,9 +54,9 @@ namespace Test.Domain.UnitTests
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(25, result.Amount);
-            Assert.IsNull(result.ErrorMessage);
+            result.IsSuccess.Should().BeTrue();
+            result.Amount.Should().Be(25);
+            result.ErrorMessage.Should().BeNull();
         }
 
         [TestMethod]
@@ -66,7 +66,6 @@ namespace Test.Domain.UnitTests
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("EUR", "USD", 46);
 
-            // create dependency mock
             var mock = new Mock<IShortestPathService>();
             mock.Setup(m => m.Get(It.IsAny<ConversionRequest>(), It.IsAny<IEnumerable<ExchangeRate>>()))
                 .Returns(new ShortestPathResult(true, new List<string> { "EUR", "CHF", "USD"}.AsEnumerable()));
@@ -77,9 +76,9 @@ namespace Test.Domain.UnitTests
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(51, result.Amount);
-            Assert.IsNull(result.ErrorMessage);
+            result.IsSuccess.Should().BeTrue();
+            result.Amount.Should().Be(51);
+            result.ErrorMessage.Should().BeNull();
         }
 
         [TestMethod]
@@ -89,7 +88,6 @@ namespace Test.Domain.UnitTests
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesConnected;
             var conversionRequest = new ConversionRequest("EUR", "USD", 45);
 
-            // create dependency mock
             var mock = new Mock<IShortestPathService>();
             mock.Setup(m => m.Get(It.IsAny<ConversionRequest>(), It.IsAny<IEnumerable<ExchangeRate>>()))
                 .Returns(new ShortestPathResult(true, new List<string> { "EUR", "CHF", "USD" }.AsEnumerable()));
@@ -100,9 +98,9 @@ namespace Test.Domain.UnitTests
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(50, result.Amount);
-            Assert.IsNull(result.ErrorMessage);
+            result.IsSuccess.Should().BeTrue();
+            result.Amount.Should().Be(50);
+            result.ErrorMessage.Should().BeNull();
         }
 
         [TestMethod]
@@ -112,7 +110,6 @@ namespace Test.Domain.UnitTests
             List<ExchangeRate> exchangeRates = ConversionServiceFake.ExchangeRatesNotConnected;
             var conversionRequest = new ConversionRequest("USD", "UAH", 1);
 
-            // create dependency mock
             var mock = new Mock<IShortestPathService>();
             mock.Setup(m => m.Get(It.IsAny<ConversionRequest>(), It.IsAny<IEnumerable<ExchangeRate>>()))
                 .Returns(new ShortestPathResult(false, null));
@@ -123,9 +120,9 @@ namespace Test.Domain.UnitTests
             var result = svc.Convert(conversionRequest, exchangeRates);
 
             // ASSERT
-            Assert.IsFalse(result.IsSuccess);
-            Assert.IsNull(result.Amount);
-            Assert.AreEqual(ConversionErrorMessage.NoPath, result.ErrorMessage);
+            result.IsSuccess.Should().BeFalse();
+            result.Amount.Should().BeNull();
+            result.ErrorMessage.Should().Be(ConversionErrorMessage.NoPath);
         }
     }
 }
