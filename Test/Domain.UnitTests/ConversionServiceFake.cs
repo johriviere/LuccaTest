@@ -1,7 +1,7 @@
 ﻿using Domain.Model;
 using System.Collections.Generic;
 
-namespace Test.Domain.Test
+namespace Test.Domain.UnitTests
 {
     public class ConversionServiceFake
     {

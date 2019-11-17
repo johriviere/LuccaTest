@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Test.Application.Test
+namespace Test.Application.UnitTests
 {
     public static class Fake
     {
