@@ -21,6 +21,8 @@ namespace Application.ConsoleClient.Ioc
 
         private static void Register()
         {
+            Container.RegisterType<IFileReader, FileReader>();
+            Container.RegisterType<IWriter, ConsoleWriter>();
             Container.RegisterType<IConversionService, ConversionService>();
             Container.RegisterType<IValidationService<IEnumerable<string>>, ValidationService>();
             Container.RegisterType<IShortestPathService, DijkstraAdapter>();

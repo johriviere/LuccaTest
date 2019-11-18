@@ -13,33 +13,37 @@ namespace Application.ConsoleClient.Adapter
     {
         private IValidationService<IEnumerable<string>> _validationService;
         private IConversionService _conversionService;
+        private IFileReader _fileReader;
+        private IWriter _writer;
 
-        public ConsoleAdapter(IValidationService<IEnumerable<string>> validationService, IConversionService conversionService)
+        public ConsoleAdapter(IValidationService<IEnumerable<string>> validationService, IConversionService conversionService, IFileReader fileReader, IWriter writer)
         {
             _validationService = validationService;
             _conversionService = conversionService;
+            _fileReader = fileReader;
+            _writer = writer;
         }
 
         public void Run(string filePath)
         {
-            var lines = File.ReadAllLines(filePath);
+            var lines = _fileReader.Read(filePath);
 
             if (_validationService.IsValid(lines))
             {
                 var result = _conversionService.Convert(ToConversionRequest(lines), ToExchangesRates(lines));
                 if (result.IsSuccess)
                 {
-                    Console.WriteLine(result.Amount);
+                    _writer.WriteLine(result.Amount);
                 }
                 else
                 {
-                    Console.WriteLine(result.ErrorMessage);
+                    _writer.WriteLine(result.ErrorMessage);
                 }
             }
             else
             {
-                Console.WriteLine(ErrorMessage.InconsistentInputData);
-                Console.WriteLine($"the file {filePath} contains inconsistent datas.");
+                _writer.WriteLine(ErrorMessage.InconsistentInputData);
+                _writer.WriteLine($"the file {filePath} contains inconsistent datas.");
             }
         }
 

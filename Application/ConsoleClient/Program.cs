@@ -18,9 +18,9 @@ namespace Application.ConsoleClient
             }
             else
             {
-                Console.WriteLine(ErrorMessage.InvalidArgument);
+                System.Console.WriteLine(ErrorMessage.InvalidArgument);
             }
-            Console.ReadKey();
+            System.Console.ReadKey();
         }
 
         private static bool IsValidArgument(string[] args)
