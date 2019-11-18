@@ -2,9 +2,7 @@
 using Application.ConsoleClient.Validation.Model;
 using Domain.Model;
 using Domain.PrimaryPort;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Application.ConsoleClient.Adapter
