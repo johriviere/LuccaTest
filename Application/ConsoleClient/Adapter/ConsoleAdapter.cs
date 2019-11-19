@@ -34,7 +34,5 @@ namespace Application.ConsoleClient.Adapter
             return myLines.Select(x => new ExchangeRate(x.SourceCurrency, x.TargetCurrency, x.Rate));
 
         }
-
-      
     }
 }
