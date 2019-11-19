@@ -1,5 +1,4 @@
-﻿using Application.ConsoleClient.Adapter;
-using Application.ConsoleClient.Ioc;
+﻿using Application.ConsoleClient.Ioc;
 using System;
 using System.IO;
 using Unity;
@@ -13,14 +12,14 @@ namespace Application.ConsoleClient
             if (IsValidArgument(args))
             {
                 Bootstrap.Start();
-                var consoleAdapter = Bootstrap.Container.Resolve<ConsoleAdapter>();
-                consoleAdapter.Run(args[0]);
+                var orchestrator = Bootstrap.Container.Resolve<Orchestrator>();
+                orchestrator.Run(args[0]);
             }
             else
             {
-                System.Console.WriteLine(ErrorMessage.InvalidArgument);
+                Console.WriteLine(ErrorMessage.InvalidArgument);
             }
-            System.Console.ReadKey();
+            Console.ReadKey();
         }
 
         private static bool IsValidArgument(string[] args)

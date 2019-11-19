@@ -1,4 +1,5 @@
-﻿using Application.ConsoleClient.Validation;
+﻿using Application.ConsoleClient.Adapter;
+using Application.ConsoleClient.Validation;
 using Application.Validation.Console;
 using Domain.PrimaryPort;
 using Domain.SecondaryPort;
@@ -21,10 +22,12 @@ namespace Application.ConsoleClient.Ioc
 
         private static void Register()
         {
+            Container.RegisterType<IOrchestrator, Orchestrator>();
             Container.RegisterType<IFileReader, FileReader>();
             Container.RegisterType<IWriter, ConsoleWriter>();
-            Container.RegisterType<IConversionService, ConversionService>();
             Container.RegisterType<IValidationService<IEnumerable<string>>, ValidationService>();
+            Container.RegisterType<IConsoleAdapter, ConsoleAdapter>();
+            Container.RegisterType<IConversionService, ConversionService>();
             Container.RegisterType<IShortestPathService, DijkstraAdapter>();
             Container.RegisterType<IDijkstraService<string>, DijkstraService<string>>();
         }
