@@ -1,5 +1,4 @@
-﻿using Application.Validation.Console;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace Application.ConsoleClient.Validation.Model
